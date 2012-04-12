@@ -1,0 +1,25 @@
+{
+    "name": "豆瓣 一键推荐",
+    "version": "1.0",
+    "description": "Recommand web pages onto Douban.",
+    "icons": { "16": "icon16.png",
+               "48": "icon48.png",
+              "128": "icon128.png" },
+    "browser_action": {
+        "default_icon": "icon48.png",
+        "default_title": "豆瓣 一键推荐",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+                "matches": ["http://*/*", "https://*/*"],
+                "js": ["myscript.js"]
+        }
+    ],
+
+    "permissions": [
+        "tabs",
+        "http://www.douban.com/",
+        "http://shuo.douban.com/"
+    ]
+}

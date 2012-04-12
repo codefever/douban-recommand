@@ -1,0 +1,32 @@
+<script type='text/javascript'>
+var e=encodeURIComponent;
+chrome.tabs.getSelected(null, function(tab) {
+    chrome.tabs.sendRequest(tab.id, {action: "getSelected"}, function(response) {
+        var r='http://www.douban.com/recommend/?url='+e(tab.url)+'&title='+e(tab.title)+'&sel='+e(response.data)+'&v=1';
+        console.log(r);
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET",r,true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState==4)
+            {
+                if (xhr.status==200)
+                {
+                    document.write(xhr.responseText);
+                    if (response.data)
+                    {
+                        var ta=document.getElementById('status_textarea');
+                        ta.value = " //"+response.data;
+                    }
+                    document.body.style.width="500px";
+                    document.body.style.height="300px";
+                }
+                else
+                {
+                    document.write("error: "+xhr.status);
+                }
+            }
+        };
+        xhr.send();
+    });
+});
+</script>
